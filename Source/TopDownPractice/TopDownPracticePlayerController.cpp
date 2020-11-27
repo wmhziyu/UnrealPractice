@@ -37,6 +37,8 @@ void ATopDownPracticePlayerController::SetupInputComponent()
 	InputComponent->BindTouch(EInputEvent::IE_Repeat, this, &ATopDownPracticePlayerController::MoveToTouchLocation);
 
 	InputComponent->BindAction("ResetVR", IE_Pressed, this, &ATopDownPracticePlayerController::OnResetVR);
+
+	InputComponent->BindAction("Shoot", IE_Pressed, this, &ATopDownPracticePlayerController::OnShoot);
 }
 
 void ATopDownPracticePlayerController::OnResetVR()
@@ -109,4 +111,14 @@ void ATopDownPracticePlayerController::OnSetDestinationReleased()
 {
 	// clear flag to indicate we should stop updating the destination
 	bMoveToMouseCursor = false;
+}
+
+void ATopDownPracticePlayerController::OnShoot()
+{
+	GEngine->AddOnScreenDebugMessage(0, 2, FColor::Red, TEXT("hello"));
+	ATopDownPracticeCharacter* MyCharacter = Cast<ATopDownPracticeCharacter>(GetPawn());
+	if (MyCharacter != nullptr)
+	{
+		MyCharacter->Shoot();
+	}
 }

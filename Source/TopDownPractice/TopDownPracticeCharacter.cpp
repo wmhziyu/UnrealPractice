@@ -55,6 +55,9 @@ ATopDownPracticeCharacter::ATopDownPracticeCharacter()
 	// Activate ticking in order to update the cursor every frame.
 	PrimaryActorTick.bCanEverTick = true;
 	PrimaryActorTick.bStartWithTickEnabled = true;
+
+	ProjectileOrigin = CreateDefaultSubobject<USceneComponent>(TEXT("ProjectileOrigine"));
+	ProjectileOrigin->SetupAttachment(RootComponent);
 }
 
 void ATopDownPracticeCharacter::Tick(float DeltaSeconds)
@@ -87,4 +90,9 @@ void ATopDownPracticeCharacter::Tick(float DeltaSeconds)
 			CursorToWorld->SetWorldRotation(CursorR);
 		}
 	}
+}
+
+void ATopDownPracticeCharacter::Shoot()
+{
+	GetWorld()->SpawnActor<AActor>(ProjectileActor, ProjectileOrigin->GetComponentTransform());
 }
